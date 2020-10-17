@@ -1,6 +1,6 @@
 package com.calcul.util;
 
-public enum MethodeCalcul {
+public enum OperatorCalcul {
 
     ADDITION("ADDITION", "+"),
     SOUSTRACTION("SOUSTRACTION", "-"),
@@ -18,7 +18,7 @@ public enum MethodeCalcul {
     public String code;
     public String operateur;
 
-    MethodeCalcul(String code, String operqaeur){
+    OperatorCalcul(String code, String operateur){
         this.code = code;
         this.operateur = operateur;
     }

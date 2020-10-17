@@ -1,26 +1,27 @@
 package com.calcul;
 
-import com.calcul.model.CalculInput;
-import com.calcul.model.CalculOutput;
-import com.calcul.model.SingleCalcul;
+import com.calcul.model.*;
+import com.calcul.util.OperatorCalcul;
+import com.calcul.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Calcul {
 
+    public Calcul(){}
 
-    public CalculOutput genererCalcul(CalculInput inputs){
+
+    public CalculOutput genererCalcul(CalculInput calculInput){
         CalculOutput calculOutput = new CalculOutput();
         List<SingleCalcul> listeCalculs = new ArrayList<SingleCalcul>();
 
-        for(int i = 0; i < inputs.getNombreCalculs(); i++){
-            int result = (int) (Math.random() * inputs.getResultMax());
-            int chiffreA = (int) (Math.random() * result);
-            SingleCalcul singleCalcul = new SingleCalcul();
-            singleCalcul.setCalcul(String.valueOf(chiffreA) + " + " + String.valueOf(result - chiffreA));
-            singleCalcul.setResult(String.valueOf(result));
-            listeCalculs.add(singleCalcul);
+        SingleCalculInput singleCalculInput = new SingleCalculInput(calculInput);
+        List<OperatorCalcul> listeOperators = Utils.getlisteOperators(calculInput);
+
+        for(int i = 0; i < calculInput.getNombreCalculs(); i++){
+            singleCalculInput.setListeOperators(Utils.getRandomOperator(new ArrayList<OperatorCalcul>(listeOperators), calculInput.getNombreOperateurs()));
+            listeCalculs.add(this.genererSingleCalcul(singleCalculInput));
         }
 
         calculOutput.setListeCalculs(listeCalculs);
@@ -28,17 +29,42 @@ public class Calcul {
     }
 
 
-    public SingleCalcul genererSingleCalcul(CalculInput inputs){
+    public SingleCalcul genererSingleCalcul(SingleCalculInput singleCalculInput){
         SingleCalcul singleCalcul = new SingleCalcul();
 
-        if(inputs.isDecimal()){
-
+        if(singleCalculInput.isDecimal()){
+            //TODO
         }else{
-            int result = (int) (Math.random() * inputs.getResultMax());
+            int result = (int) (Math.random() * singleCalculInput.getResultMax());
 
+            int chiffre1 = 0;
+            int chiffre2 = 0;
+            if(singleCalculInput.getNombreOperateurs() == 1){
+
+              if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.ADDITION)){
+                  chiffre1 = (int) (Math.random() * (result - 2) + 1);
+                  chiffre2 = result - chiffre1;
+              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.SOUSTRACTION)){
+                  chiffre1 = (int) (Math.random() * (singleCalculInput.getMaxSigneChiffre() - result) + result);
+                  chiffre2 = chiffre1 - result;
+              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.MULTIPLICATION)){
+                  //TODO
+              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.DIVISION)){
+                  //TODO
+              }
+
+              singleCalcul.setCalcul(chiffre1 + " "
+                      + singleCalculInput.getListeOperators().get(0).getOperateur() + " "
+                      + chiffre2);
+              singleCalcul.setResult(String.valueOf(result));
+            } else{
+                //TODO
+            }
         }
 
         return singleCalcul;
     }
+
+
 
 }
