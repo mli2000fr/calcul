@@ -8,7 +8,7 @@ public class Main {
 
         ExeciseGenerator execiseGenerator = new ExeciseGenerator();
         ExeciseInput inputs = new ExeciseInput();
-
+/*
         inputs.setOperateurAddition(true);
         inputs.setResultMax(30);
 
@@ -17,9 +17,9 @@ public class Main {
         inputs.setMaxSigneChiffre(50);
 
         //inputs.setOperateurMultiplication(true);
-
-
         //inputs.setTableMultiplication(true);
+        */
+        inputs.setOperateurDivision(true);
 
         ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
 

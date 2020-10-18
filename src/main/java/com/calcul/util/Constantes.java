@@ -11,8 +11,8 @@ public class Constantes {
     public static final int RESULTAT_MAX = 50;
     public static final int MAX_SIGNLE_CHIFFRE = 100;
 
-    public static final int MULTIPLE_MAX_1 = 15;
-    public static final int MULTIPLE_MAX_2 = 15;
+    public static final int MULTIPLE_MAX_1 = 9;
+    public static final int MULTIPLE_MAX_2 = 9;
 
     public static final int TABLE_MULTIPLICATION_MAX = 9;
 

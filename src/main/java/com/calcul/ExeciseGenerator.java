@@ -85,7 +85,11 @@ public class ExeciseGenerator {
                                 ? singleCalculInput.getMultiple2Max() : Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1);
                         result = chiffre1 * chiffre2;
                     }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.DIVISION)){
-                        //TODO
+                        result = ((int) (Math.random() * (Utils.isNotNull(singleCalculInput.getMultiple1Max())
+                                ? singleCalculInput.getMultiple1Max() : Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1);
+                        chiffre2 = ((int) (Math.random() * (Utils.isNotNull(singleCalculInput.getMultiple2Max())
+                                ? singleCalculInput.getMultiple2Max() : Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1);
+                        chiffre1 = result * chiffre2;
                     }
                 }
 
