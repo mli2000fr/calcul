@@ -8,19 +8,20 @@ public class Main {
 
         ExeciseGenerator execiseGenerator = new ExeciseGenerator();
         ExeciseInput inputs = new ExeciseInput();
-/*
-        inputs.setOperateurAddition(true);
-        inputs.setResultMax(30);
 
+        inputs.setOperateurAddition(true);
+        inputs.setResultMax(10);
+        inputs.setNombreExecises(2);
+/*
         inputs.setOperateurSoustraction(true);
         inputs.setResultMax(30);
         inputs.setMaxSigneChiffre(50);
 
         //inputs.setOperateurMultiplication(true);
         //inputs.setTableMultiplication(true);
-        */
-        inputs.setOperateurDivision(true);
 
+        inputs.setOperateurDivision(true);
+  */
         ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
 
         System.out.println(execiseOutput.toString());
