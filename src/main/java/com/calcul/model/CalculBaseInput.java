@@ -17,7 +17,7 @@ public class CalculBaseInput {
     private int multiple1Max = 9;
     private int multiple2Max = 9;
 
-    private int nombreCalculs = 500;
+    private int nombreCalculs = 50;
 
     public CalculBaseInput(){}
 

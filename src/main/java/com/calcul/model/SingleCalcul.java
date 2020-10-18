@@ -22,7 +22,7 @@ public class SingleCalcul {
     }
 
     public String toString(boolean avecResult){
-        return avecResult ? calcul + " = " + result : result;
+        return calcul + " = " + (avecResult ? result : "");
     }
 }
 

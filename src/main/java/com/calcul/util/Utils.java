@@ -2,7 +2,9 @@ package com.calcul.util;
 
 import com.calcul.model.CalculInput;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,29 @@ public class Utils {
             }
             return listeOpe;
         }
+    }
+
+    public static String getTitre(String date){
+        if(!isNotNull(date)){
+            SimpleDateFormat  formater = new SimpleDateFormat("dd/MM/yyyy");
+            date = formater.format(new Date());
+        }
+
+        return "Execises du " + date;
+    }
+
+    public static boolean isNotNull(Object obj){
+        if(obj == null){
+            return false;
+        }
+
+        if(obj instanceof String){
+            if(((String) obj).isEmpty()){
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
