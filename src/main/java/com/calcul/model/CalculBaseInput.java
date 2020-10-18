@@ -1,23 +1,25 @@
 package com.calcul.model;
 
+import com.calcul.util.Constantes;
+
 import java.util.List;
 
 public class CalculBaseInput {
 
-    private boolean isNegatif;
+    private boolean isNegatif = Constantes.IS_NEGATIF;
 
-    private boolean isDecimal;
-    private int nombreMaxDecimals = 2;
+    private boolean isDecimal = Constantes.IS_DECIMAL;
+    private int nombreMaxDecimals = Constantes.NOMBRE_MAX_DECIMALS;
 
-    private int nombreOperateurs = 1;
+    private int nombreOperateurs = Constantes.NOMBRE_OPERATORS;
 
-    private int resultMax = 50;
-    private int maxSigneChiffre = 100;
+    private int resultMax = Constantes.RESULTAT_MAX;
+    private int maxSigneChiffre = Constantes.MAX_SIGNLE_CHIFFRE;
 
-    private int multiple1Max = 9;
-    private int multiple2Max = 9;
+    private int multiple1Max = Constantes.MULTIPLE_MAX_1;
+    private int multiple2Max = Constantes.MULTIPLE_MAX_2;
 
-    private int nombreCalculs = 50;
+    private int nombreExecises = Constantes.NOMBRES_EXECISES;
 
     public CalculBaseInput(){}
 
@@ -30,7 +32,7 @@ public class CalculBaseInput {
         this.maxSigneChiffre = calculBaseInput.getMaxSigneChiffre();
         this.multiple1Max = calculBaseInput.getMultiple1Max();
         this.multiple2Max = calculBaseInput.getMultiple2Max();
-        this.nombreCalculs = calculBaseInput.getNombreCalculs();
+        this.nombreExecises = calculBaseInput.getNombreExecises();
     }
 
     public boolean isNegatif() {
@@ -97,11 +99,11 @@ public class CalculBaseInput {
         this.multiple2Max = multiple2Max;
     }
 
-    public int getNombreCalculs() {
-        return nombreCalculs;
+    public int getNombreExecises() {
+        return nombreExecises;
     }
 
-    public void setNombreCalculs(int nombreCalculs) {
-        this.nombreCalculs = nombreCalculs;
+    public void setNombreExecises(int nombreExecises) {
+        this.nombreExecises = nombreExecises;
     }
 }

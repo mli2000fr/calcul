@@ -7,11 +7,21 @@ public class CalculInput extends CalculBaseInput{
     private boolean isOperateurMultiplication;
     private boolean isOperateurDivision;
 
+    private boolean isTableMultiplication;
+
     public CalculInput(){
         super();
     }
     public CalculInput(CalculInput calculInput){
         super(calculInput);
+    }
+
+    public boolean isTableMultiplication() {
+        return isTableMultiplication;
+    }
+
+    public void setTableMultiplication(boolean tableMultiplication) {
+        isTableMultiplication = tableMultiplication;
     }
 
     public boolean isOperateurAddition() {

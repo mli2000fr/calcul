@@ -12,6 +12,7 @@ public class Utils {
 
     public static List<OperatorCalcul> getlisteOperators(CalculInput calculInput){
         List<OperatorCalcul> listeOperators = new ArrayList<OperatorCalcul>();
+
         if(calculInput.isOperateurAddition()){
             listeOperators.add(OperatorCalcul.ADDITION);
         }
@@ -23,6 +24,9 @@ public class Utils {
         }
         if(calculInput.isOperateurDivision()){
             listeOperators.add(OperatorCalcul.DIVISION);
+        }
+        if(calculInput.isTableMultiplication()){
+            listeOperators.add(OperatorCalcul.TABLEAU_MULTIPLICATION);
         }
         return listeOperators;
     }

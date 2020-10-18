@@ -1,6 +1,7 @@
 package com.calcul;
 
 import com.calcul.model.*;
+import com.calcul.util.Constantes;
 import com.calcul.util.OperatorCalcul;
 import com.calcul.util.Utils;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -31,7 +32,7 @@ public class Calcul {
         SingleCalculInput singleCalculInput = new SingleCalculInput(calculInput);
         List<OperatorCalcul> listeOperators = Utils.getlisteOperators(calculInput);
 
-        for(int i = 0; i < calculInput.getNombreCalculs(); i++){
+        for(int i = 0; i < calculInput.getNombreExecises(); i++){
             singleCalculInput.setListeOperators(Utils.getRandomOperator(new ArrayList<OperatorCalcul>(listeOperators), calculInput.getNombreOperateurs()));
             listeCalculs.add(this.genererSingleCalcul(singleCalculInput));
         }
@@ -49,27 +50,37 @@ public class Calcul {
 
     public SingleCalcul genererSingleCalcul(SingleCalculInput singleCalculInput){
         SingleCalcul singleCalcul = new SingleCalcul();
+        int result = 0;
+        int chiffre1 = 0;
+        int chiffre2 = 0;
 
         if(singleCalculInput.isDecimal()){
             //TODO
         }else{
-            int result = (int) (Math.random() * singleCalculInput.getResultMax());
-
-            int chiffre1 = 0;
-            int chiffre2 = 0;
             if(singleCalculInput.getNombreOperateurs() == 1){
 
-              if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.ADDITION)){
-                  chiffre1 = (int) (Math.random() * (result - 2) + 1);
-                  chiffre2 = result - chiffre1;
-              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.SOUSTRACTION)){
-                  chiffre1 = (int) (Math.random() * (singleCalculInput.getMaxSigneChiffre() - result) + result);
-                  chiffre2 = chiffre1 - result;
-              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.MULTIPLICATION)){
-                  //TODO
-              }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.DIVISION)){
-                  //TODO
-              }
+                if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.TABLEAU_MULTIPLICATION)){
+                    chiffre1 = ((int) (Math.random() * Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1;
+                    chiffre2 = ((int) (Math.random() * Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1;
+                    result = chiffre1 * chiffre2;
+                }else{
+                    result = (int) (Math.random() * singleCalculInput.getResultMax());
+                    if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.ADDITION)){
+                        chiffre1 = (int) (Math.random() * (result - 2) + 1);
+                        chiffre2 = result - chiffre1;
+                    }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.SOUSTRACTION)){
+                        chiffre1 = (int) (Math.random() * (singleCalculInput.getMaxSigneChiffre() - result) + result);
+                        chiffre2 = chiffre1 - result;
+                    }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.MULTIPLICATION)){
+                        chiffre1 = ((int) (Math.random() * (Utils.isNotNull(singleCalculInput.getMultiple1Max())
+                                ? singleCalculInput.getMultiple1Max() : Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1);
+                        chiffre2 = ((int) (Math.random() * (Utils.isNotNull(singleCalculInput.getMultiple2Max())
+                                ? singleCalculInput.getMultiple2Max() : Constantes.TABLE_MULTIPLICATION_MAX - 1)) + 1);
+                        result = chiffre1 * chiffre2;
+                    }else if(singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.DIVISION)){
+                        //TODO
+                    }
+                }
 
               singleCalcul.setCalcul(chiffre1 + " "
                       + singleCalculInput.getListeOperators().get(0).getOperateur() + " "
@@ -78,6 +89,9 @@ public class Calcul {
             } else{
                 //TODO
             }
+        }
+        if(chiffre1 == 1 || chiffre2 == 1 || result == 0){
+            singleCalcul = this.genererSingleCalcul(singleCalculInput);
         }
 
         return singleCalcul;
@@ -103,17 +117,12 @@ public class Calcul {
                 cell.add(new Paragraph(singleCalcul.toString(avecResult)));
                 cell.setFontSize(20);
                 cell.setMarginLeft(10);
-                cell.setMarginTop(10);
-                cell.setMarginBottom(10);
+                cell.setMarginTop(5);
+                cell.setMarginBottom(5);
                 cell.setBorder(Border.NO_BORDER);
                 table.addCell(cell);
             }
             doc.add(table);
-
-            /*
-            for(SingleCalcul singleCalcul : calculOutput.getListeCalculs()){
-                doc.add(new Paragraph(singleCalcul.toString(avecResult)));
-            }*/
 
             doc.close();
             outputStream.close();
