@@ -2,9 +2,7 @@ package com.calcul.model;
 
 import com.calcul.util.Constantes;
 
-import java.util.List;
-
-public class CalculBaseInput {
+public class ExeciseBaseInput {
 
     private boolean isNegatif = Constantes.IS_NEGATIF;
 
@@ -19,20 +17,30 @@ public class CalculBaseInput {
     private int multiple1Max = Constantes.MULTIPLE_MAX_1;
     private int multiple2Max = Constantes.MULTIPLE_MAX_2;
 
+    private int nombreCalculsParExecise = Constantes.NOMBRES_CALCULS_EXECISE;
     private int nombreExecises = Constantes.NOMBRES_EXECISES;
 
-    public CalculBaseInput(){}
+    public ExeciseBaseInput(){}
 
-    public CalculBaseInput(CalculBaseInput calculBaseInput){
-        this.isNegatif = calculBaseInput.isNegatif();
-        this.isDecimal = calculBaseInput.isDecimal();
-        this.nombreMaxDecimals = calculBaseInput.getNombreMaxDecimals();
-        this.nombreOperateurs = calculBaseInput.getNombreOperateurs();
-        this.resultMax = calculBaseInput.getResultMax();
-        this.maxSigneChiffre = calculBaseInput.getMaxSigneChiffre();
-        this.multiple1Max = calculBaseInput.getMultiple1Max();
-        this.multiple2Max = calculBaseInput.getMultiple2Max();
-        this.nombreExecises = calculBaseInput.getNombreExecises();
+    public ExeciseBaseInput(ExeciseBaseInput execiseBaseInput){
+        this.isNegatif = execiseBaseInput.isNegatif();
+        this.isDecimal = execiseBaseInput.isDecimal();
+        this.nombreMaxDecimals = execiseBaseInput.getNombreMaxDecimals();
+        this.nombreOperateurs = execiseBaseInput.getNombreOperateurs();
+        this.resultMax = execiseBaseInput.getResultMax();
+        this.maxSigneChiffre = execiseBaseInput.getMaxSigneChiffre();
+        this.multiple1Max = execiseBaseInput.getMultiple1Max();
+        this.multiple2Max = execiseBaseInput.getMultiple2Max();
+        this.nombreExecises = execiseBaseInput.getNombreExecises();
+        this.nombreCalculsParExecise = execiseBaseInput.getNombreCalculsParExecise();
+    }
+
+    public int getNombreCalculsParExecise() {
+        return nombreCalculsParExecise;
+    }
+
+    public void setNombreCalculsParExecise(int nombreCalculsParExecise) {
+        this.nombreCalculsParExecise = nombreCalculsParExecise;
     }
 
     public boolean isNegatif() {

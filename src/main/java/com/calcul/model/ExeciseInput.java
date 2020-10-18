@@ -1,6 +1,6 @@
 package com.calcul.model;
 
-public class CalculInput extends CalculBaseInput{
+public class ExeciseInput extends ExeciseBaseInput {
 
     private boolean isOperateurAddition;
     private boolean isOperateurSoustraction;
@@ -9,11 +9,11 @@ public class CalculInput extends CalculBaseInput{
 
     private boolean isTableMultiplication;
 
-    public CalculInput(){
+    public ExeciseInput(){
         super();
     }
-    public CalculInput(CalculInput calculInput){
-        super(calculInput);
+    public ExeciseInput(ExeciseInput execiseInput){
+        super(execiseInput);
     }
 
     public boolean isTableMultiplication() {

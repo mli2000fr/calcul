@@ -1,6 +1,6 @@
 package com.calcul.model;
 
-public class SingleCalcul {
+public class Calcul {
 
     private String calcul;
     private String result;

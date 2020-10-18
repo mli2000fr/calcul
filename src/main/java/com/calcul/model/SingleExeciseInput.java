@@ -1,17 +1,15 @@
 package com.calcul.model;
 
 import com.calcul.util.OperatorCalcul;
-import com.calcul.util.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SingleCalculInput extends CalculBaseInput{
+public class SingleExeciseInput extends ExeciseBaseInput {
 
     private List<OperatorCalcul> listeOperators;
 
-    public SingleCalculInput(CalculInput calculInput) {
-        super(calculInput);
+    public SingleExeciseInput(ExeciseInput execiseInput) {
+        super(execiseInput);
     }
 
     public List<OperatorCalcul> getListeOperators() {

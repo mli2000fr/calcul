@@ -6,8 +6,8 @@ public class Main {
 
     public static void main (String[] args){
 
-        Calcul calcul = new Calcul();
-        CalculInput inputs = new CalculInput();
+        ExeciseGenerator execiseGenerator = new ExeciseGenerator();
+        ExeciseInput inputs = new ExeciseInput();
 
         inputs.setOperateurAddition(true);
         inputs.setResultMax(30);
@@ -21,8 +21,8 @@ public class Main {
 
         //inputs.setTableMultiplication(true);
 
-        CalculOutput calculOutput = calcul.genererCalcul(inputs);
+        ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
 
-        System.out.println(calculOutput.toString(true));
+        System.out.println(execiseOutput.toString());
     }
 }

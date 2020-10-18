@@ -8,7 +8,6 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
@@ -17,39 +16,47 @@ import com.itextpdf.layout.element.Text;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class Calcul {
+public class ExeciseGenerator {
 
-    public Calcul(){}
+    public ExeciseGenerator(){}
 
 
-    public CalculOutput genererCalcul(CalculInput calculInput){
-        CalculOutput calculOutput = new CalculOutput();
-        List<SingleCalcul> listeCalculs = new ArrayList<SingleCalcul>();
+    public ExeciseOutput genererExicises(ExeciseInput execiseInput){
+        ExeciseOutput execiseOutput = new ExeciseOutput();
+        List<Execise> listeExecises = new ArrayList<Execise>();
 
-        SingleCalculInput singleCalculInput = new SingleCalculInput(calculInput);
-        List<OperatorCalcul> listeOperators = Utils.getlisteOperators(calculInput);
+        SingleExeciseInput singleCalculInput = new SingleExeciseInput(execiseInput);
+        List<OperatorCalcul> listeOperators = Utils.getlisteOperators(execiseInput);
+        singleCalculInput.setListeOperators(Utils.getRandomOperator(new ArrayList<OperatorCalcul>(listeOperators), execiseInput.getNombreOperateurs()));
 
-        for(int i = 0; i < calculInput.getNombreExecises(); i++){
-            singleCalculInput.setListeOperators(Utils.getRandomOperator(new ArrayList<OperatorCalcul>(listeOperators), calculInput.getNombreOperateurs()));
-            listeCalculs.add(this.genererSingleCalcul(singleCalculInput));
+        for(int i = 0; i < execiseInput.getNombreExecises(); i++){
+            Execise execise = new Execise();
+            List<Calcul> listeCalculs = new ArrayList<Calcul>();
+            for(int index = 0; index < execiseInput.getNombreCalculsParExecise(); index++){
+                listeCalculs.add(this.genererSingleCalcul(singleCalculInput));
+            }
+            execise.setListeCalculs(listeCalculs);
+            execise.setTitre(Utils.getTitreExecise(i + 1));
+            execise.setPied(Utils.getPiedExecise());
+            listeExecises.add(execise);
         }
 
-        calculOutput.setListeCalculs(listeCalculs);
+
+
+        execiseOutput.setListeExecises(listeExecises);
 
         //pdf
-        calculOutput.setTitre(Utils.getTitre(null));
-        this.genererPdf(calculOutput, true);
-        this.genererPdf(calculOutput, false);
+        this.genererPdf(execiseOutput, true);
+        this.genererPdf(execiseOutput, false);
 
-        return calculOutput;
+        return execiseOutput;
     }
 
 
-    public SingleCalcul genererSingleCalcul(SingleCalculInput singleCalculInput){
-        SingleCalcul singleCalcul = new SingleCalcul();
+    public Calcul genererSingleCalcul(SingleExeciseInput singleCalculInput){
+        Calcul calcul = new Calcul();
         int result = 0;
         int chiffre1 = 0;
         int chiffre2 = 0;
@@ -82,47 +89,56 @@ public class Calcul {
                     }
                 }
 
-              singleCalcul.setCalcul(chiffre1 + " "
+              calcul.setCalcul(chiffre1 + " "
                       + singleCalculInput.getListeOperators().get(0).getOperateur() + " "
                       + chiffre2);
-              singleCalcul.setResult(String.valueOf(result));
+              calcul.setResult(String.valueOf(result));
             } else{
                 //TODO
             }
         }
         if(chiffre1 == 1 || chiffre2 == 1 || result == 0){
-            singleCalcul = this.genererSingleCalcul(singleCalculInput);
+            calcul = this.genererSingleCalcul(singleCalculInput);
         }
 
-        return singleCalcul;
+        return calcul;
     }
 
 
 
-    public void genererPdf(CalculOutput calculOutput, boolean avecResult){
+    public void genererPdf(ExeciseOutput execiseOutput, boolean avecResult){
         try{
             OutputStream outputStream = new FileOutputStream("./test" + (avecResult ? "_result": "") + ".pdf");
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
 
-            doc.add(new Paragraph()
-                    .add(new Text(calculOutput.getTitre()))
-            );
+            for(Execise execise : execiseOutput.getListeExecises()){
+                doc.add(new Paragraph()
+                                .add(new Text(execise.getTitre())
+                                .setFontSize(Constantes.FONT_SIZE_TITRE_EXECISE))
+                                .setMarginBottom(20)
+                );
 
-            Table table = new Table(3);
-            table.setBorder(Border.NO_BORDER);
-            for(SingleCalcul singleCalcul : calculOutput.getListeCalculs()){
-                Cell cell = new Cell();
-                cell.add(new Paragraph(singleCalcul.toString(avecResult)));
-                cell.setFontSize(20);
-                cell.setMarginLeft(10);
-                cell.setMarginTop(5);
-                cell.setMarginBottom(5);
-                cell.setBorder(Border.NO_BORDER);
-                table.addCell(cell);
+                Table table = new Table(3);
+                table.setBorder(Border.NO_BORDER);
+                for(Calcul calcul : execise.getListeCalculs()){
+                    Cell cell = new Cell();
+                    cell.add(new Paragraph(calcul.toString(avecResult)));
+                    cell.setFontSize(Constantes.FONT_SIZE_EXECISE);
+                    cell.setMarginLeft(10);
+                    cell.setMarginTop(5);
+                    cell.setMarginBottom(5);
+                    cell.setBorder(Border.NO_BORDER);
+                    table.addCell(cell);
+                }
+                doc.add(table);
+                doc.add(new Paragraph()
+                        .add(new Text(execise.getPied())
+                        .setFontSize(Constantes.FONT_SIZE_PIED_EXECISE))
+                        .setMarginTop(20)
+                );
             }
-            doc.add(table);
 
             doc.close();
             outputStream.close();

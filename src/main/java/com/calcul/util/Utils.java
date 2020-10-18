@@ -1,31 +1,30 @@
 package com.calcul.util;
 
-import com.calcul.model.CalculInput;
+import com.calcul.model.ExeciseInput;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Utils {
 
-    public static List<OperatorCalcul> getlisteOperators(CalculInput calculInput){
+    public static List<OperatorCalcul> getlisteOperators(ExeciseInput execiseInput){
         List<OperatorCalcul> listeOperators = new ArrayList<OperatorCalcul>();
 
-        if(calculInput.isOperateurAddition()){
+        if(execiseInput.isOperateurAddition()){
             listeOperators.add(OperatorCalcul.ADDITION);
         }
-        if(calculInput.isOperateurSoustraction()){
+        if(execiseInput.isOperateurSoustraction()){
             listeOperators.add(OperatorCalcul.SOUSTRACTION);
         }
-        if(calculInput.isOperateurMultiplication()){
+        if(execiseInput.isOperateurMultiplication()){
             listeOperators.add(OperatorCalcul.MULTIPLICATION);
         }
-        if(calculInput.isOperateurDivision()){
+        if(execiseInput.isOperateurDivision()){
             listeOperators.add(OperatorCalcul.DIVISION);
         }
-        if(calculInput.isTableMultiplication()){
+        if(execiseInput.isTableMultiplication()){
             listeOperators.add(OperatorCalcul.TABLEAU_MULTIPLICATION);
         }
         return listeOperators;
@@ -45,14 +44,23 @@ public class Utils {
         }
     }
 
-    public static String getTitre(String date){
+/*    public static String getTitre(String date){
         if(!isNotNull(date)){
             SimpleDateFormat  formater = new SimpleDateFormat("dd/MM/yyyy");
             date = formater.format(new Date());
         }
-
         return "Execises du " + date;
+    }*/
+
+    public static String getTitreExecise(int index){
+        return Constantes.TITRE_EXECISE + String.valueOf(index);
     }
+
+    public static String getPiedExecise(){
+        return Constantes.PIED_EXECISE;
+    }
+
+
 
     public static boolean isNotNull(Object obj){
         if(obj == null){
