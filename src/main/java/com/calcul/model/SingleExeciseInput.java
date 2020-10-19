@@ -19,4 +19,12 @@ public class SingleExeciseInput extends ExeciseBaseInput {
     public void setListeOperators(List<OperatorCalcul> listeOperators) {
         this.listeOperators = listeOperators;
     }
+
+    public String getNomOpeCal(){
+        String nom = "";
+        for(OperatorCalcul ope: listeOperators){
+            nom += ope.getNom().substring(0, 3) + "_";
+        }
+        return nom;
+    }
 }

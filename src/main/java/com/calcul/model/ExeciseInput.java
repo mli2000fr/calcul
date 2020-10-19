@@ -55,4 +55,5 @@ public class ExeciseInput extends ExeciseBaseInput {
     public void setOperateurDivision(boolean operateurDivision) {
         isOperateurDivision = operateurDivision;
     }
+
 }

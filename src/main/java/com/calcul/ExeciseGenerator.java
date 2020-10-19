@@ -48,8 +48,8 @@ public class ExeciseGenerator {
         execiseOutput.setListeExecises(listeExecises);
 
         //pdf
-        this.genererPdf(execiseOutput, true);
-        this.genererPdf(execiseOutput, false);
+        this.genererPdf(singleCalculInput.getNomOpeCal(), execiseOutput, true);
+        this.genererPdf(singleCalculInput.getNomOpeCal(), execiseOutput, false);
 
         return execiseOutput;
     }
@@ -101,7 +101,7 @@ public class ExeciseGenerator {
                 //TODO
             }
         }
-        if(chiffre1 == 1 || chiffre2 == 1 || result == 0){
+        if(chiffre1 == 0 || chiffre2 == 0 || chiffre1 == 1 || chiffre2 == 1 || result == 0){
             calcul = this.genererSingleCalcul(singleCalculInput);
         }
 
@@ -110,9 +110,9 @@ public class ExeciseGenerator {
 
 
 
-    public void genererPdf(ExeciseOutput execiseOutput, boolean avecResult){
+    public void genererPdf(String nomOpeCal, ExeciseOutput execiseOutput, boolean avecResult){
         try{
-            OutputStream outputStream = new FileOutputStream("./test" + (avecResult ? "_result": "") + ".pdf");
+            OutputStream outputStream = new FileOutputStream("./"+ nomOpeCal + (avecResult ? "result": "") + ".pdf");
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);

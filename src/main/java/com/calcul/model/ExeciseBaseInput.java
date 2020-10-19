@@ -114,4 +114,17 @@ public class ExeciseBaseInput {
     public void setNombreExecises(int nombreExecises) {
         this.nombreExecises = nombreExecises;
     }
+
+    public String toString(){
+        return "\nisNegatif: " + isNegatif + "\n"
+                + "isDecimal: " + isDecimal + "\n"
+                + "nombreMaxDecimals: " + nombreMaxDecimals + "\n"
+                + "nombreOperateurs: " + nombreOperateurs + "\n"
+                + "resultMax: " + resultMax + "\n"
+                + "maxSigneChiffre: " + maxSigneChiffre + "\n"
+                + "multiple1Max: " + multiple1Max + "\n"
+                + "multiple2Max: " + multiple2Max + "\n"
+                + "nombreCalculsParExecise: " + nombreCalculsParExecise + "\n"
+                + "nombreExecises: " + nombreExecises + "\n";
+    }
 }

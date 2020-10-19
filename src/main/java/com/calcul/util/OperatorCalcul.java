@@ -15,9 +15,9 @@ public enum OperatorCalcul {
 
 
 
-    public String code;
-    public String operateur;
-    public String nom;
+    private String code;
+    private String operateur;
+    private String nom;
 
     OperatorCalcul(String code, String operateur, String nom){
         this.code = code;

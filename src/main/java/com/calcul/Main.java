@@ -8,15 +8,16 @@ public class Main {
 
         ExeciseGenerator execiseGenerator = new ExeciseGenerator();
         ExeciseInput inputs = new ExeciseInput();
-
-        inputs.setOperateurAddition(true);
-        inputs.setResultMax(10);
         inputs.setNombreExecises(2);
+
 /*
+        inputs.setOperateurAddition(true);
+        inputs.setResultMax(30);
+*/
         inputs.setOperateurSoustraction(true);
         inputs.setResultMax(30);
-        inputs.setMaxSigneChiffre(50);
-
+        inputs.setMaxSigneChiffre(30);
+/*
         //inputs.setOperateurMultiplication(true);
         //inputs.setTableMultiplication(true);
 

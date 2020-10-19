@@ -20,11 +20,11 @@ public class Constantes {
 
     public static final int TABLE_MULTIPLICATION_MAX = 9;
 
-    public static final int NOMBRES_EXECISES = 10;
+    public static final int NOMBRES_EXECISES = 2;
     public static final int NOMBRES_CALCULS_EXECISE = 48;
 
     public static final String TITRE_EXECISE = "Execise ";
-    public static final String PIED_EXECISE = "Date_______________     Temps____________     Notes_________";
+    public static final String PIED_EXECISE = "Date_________     Temps_________     Nombre de réussits_________";
 
     public static final float FONT_SIZE_TITRE_EXECISE = 20;
     public static final float FONT_SIZE_PIED_EXECISE = 15;
@@ -37,7 +37,9 @@ public class Constantes {
                     OperatorCalcul.DIVISION, OperatorCalcul.TABLEAU_MULTIPLICATION}));
     public static final String TITRE_GENERATOR = "Execises générateur";
     public static final int FRAME_GENERATOR_SIZE_WIDTH = 700;
-    public static final int FRAME_GENERATOR_SIZE_HEIGHT = 500;
+    public static final int FRAME_GENERATOR_SIZE_HEIGHT = 550;
+
+    public static final float MARGE_COMPOSANT = 20;
 
     public static final int PANEL_SIZE_WIDTH = FRAME_GENERATOR_SIZE_WIDTH - 100;
     public static final int PANEL_SIZE_HEIGHT = 50;
