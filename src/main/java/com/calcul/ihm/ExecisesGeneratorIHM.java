@@ -164,44 +164,49 @@ public class ExecisesGeneratorIHM {
 		generationPdf.addActionListener(new AbstractAction("Générer pdf...") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ExeciseGenerator execiseGenerator = new ExeciseGenerator();
-				ExeciseInput inputs = new ExeciseInput();
-				inputs.setDecimal(Integer.valueOf(this_cbNbsDecimals.getSelectedItem().toString()) != 0);
-				inputs.setNombreMaxDecimals(Integer.valueOf(this_cbNbsDecimals.getSelectedItem().toString()));
-				inputs.setNegatif(this_checkboxNegatif.isSelected());
-				inputs.setNombreCalculsParExecise(Integer.valueOf(this_tfNbCal.getText()));
-				inputs.setNombreExecises(Integer.valueOf(this_cbNbCopies.getSelectedItem().toString()));
+				try {
+					ExeciseGenerator execiseGenerator = new ExeciseGenerator();
+					ExeciseInput inputs = new ExeciseInput();
+					inputs.setDecimal(Integer.valueOf(this_cbNbsDecimals.getSelectedItem().toString()) != 0);
+					inputs.setNombreMaxDecimals(Integer.valueOf(this_cbNbsDecimals.getSelectedItem().toString()));
+					inputs.setNegatif(this_checkboxNegatif.isSelected());
+					inputs.setNombreCalculsParExecise(Integer.valueOf(this_tfNbCal.getText()));
+					inputs.setNombreExecises(Integer.valueOf(this_cbNbCopies.getSelectedItem().toString()));
 
-				if(operatorCalcul.equals(OperatorCalcul.TABLEAU_MULTIPLICATION)){
-					inputs.setTableMultiplication(true);
-					inputs.setMaxSigneChiffre(Integer.valueOf(tfMaxChiffre.getText()));
-				}else{
+					if (operatorCalcul.equals(OperatorCalcul.TABLEAU_MULTIPLICATION)) {
+						inputs.setTableMultiplication(true);
+						inputs.setMaxSigneChiffre(Integer.valueOf(tfMaxChiffre.getText()));
+					} else {
 
-					if(operatorCalcul.equals(OperatorCalcul.ADDITION) || operatorCalcul.equals(OperatorCalcul.SOUSTRACTION)){
-						inputs.setResultMax(Integer.valueOf(tfResultMax.getText()));
+						if (operatorCalcul.equals(OperatorCalcul.ADDITION) || operatorCalcul.equals(OperatorCalcul.SOUSTRACTION)) {
+							inputs.setResultMax(Integer.valueOf(tfResultMax.getText()));
 
-						if(operatorCalcul.equals(OperatorCalcul.SOUSTRACTION)){
-							inputs.setOperateurSoustraction(true);
-							inputs.setMaxSigneChiffre(Integer.valueOf(tfMaxChiffre.getText()));
-						}else{
-							inputs.setOperateurAddition(true);
-						}
-					}else if(operatorCalcul.equals(OperatorCalcul.MULTIPLICATION) || operatorCalcul.equals(OperatorCalcul.DIVISION)){
-						inputs.setMultiple1Max(Integer.valueOf(jfMaxChiffreA.getText()));
-						inputs.setMultiple2Max(Integer.valueOf(jfMaxChiffreB.getText()));
+							if (operatorCalcul.equals(OperatorCalcul.SOUSTRACTION)) {
+								inputs.setOperateurSoustraction(true);
+								inputs.setMaxSigneChiffre(Integer.valueOf(tfMaxChiffre.getText()));
+							} else {
+								inputs.setOperateurAddition(true);
+							}
+						} else if (operatorCalcul.equals(OperatorCalcul.MULTIPLICATION) || operatorCalcul.equals(OperatorCalcul.DIVISION)) {
+							inputs.setMultiple1Max(Integer.valueOf(jfMaxChiffreA.getText()));
+							inputs.setMultiple2Max(Integer.valueOf(jfMaxChiffreB.getText()));
 
-						if(operatorCalcul.equals(OperatorCalcul.MULTIPLICATION)){
-							inputs.setOperateurMultiplication(true);
-						}else{
-							inputs.setOperateurDivision(true);
+							if (operatorCalcul.equals(OperatorCalcul.MULTIPLICATION)) {
+								inputs.setOperateurMultiplication(true);
+							} else {
+								inputs.setOperateurDivision(true);
+							}
 						}
 					}
+					//System.out.println(operatorCalcul.getCode() + "---" + inputs.toString());
+
+					ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
+
+					System.out.println(execiseOutput.toString());
+				}catch(Exception exception){
+					JOptionPane.showMessageDialog(jPanel, "Erreur de saisie.");
+					System.out.println(exception.getMessage());
 				}
-				//System.out.println(operatorCalcul.getCode() + "---" + inputs.toString());
-
-				ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
-
-				System.out.println(execiseOutput.toString());
 			}
 		});
 		jPanel.add(generationPdf);

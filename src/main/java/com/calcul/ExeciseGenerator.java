@@ -13,9 +13,12 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.awt.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ExeciseGenerator {
@@ -23,7 +26,7 @@ public class ExeciseGenerator {
     public ExeciseGenerator(){}
 
 
-    public ExeciseOutput genererExicises(ExeciseInput execiseInput){
+    public ExeciseOutput genererExicises(ExeciseInput execiseInput) throws Exception {
         ExeciseOutput execiseOutput = new ExeciseOutput();
         List<Execise> listeExecises = new ArrayList<Execise>();
 
@@ -48,7 +51,7 @@ public class ExeciseGenerator {
         execiseOutput.setListeExecises(listeExecises);
 
         //pdf
-        this.genererPdf(singleCalculInput.getNomOpeCal(), execiseOutput, true);
+        //this.genererPdf(singleCalculInput.getNomOpeCal(), execiseOutput, true);
         this.genererPdf(singleCalculInput.getNomOpeCal(), execiseOutput, false);
 
         return execiseOutput;
@@ -101,7 +104,9 @@ public class ExeciseGenerator {
                 //TODO
             }
         }
-        if(chiffre1 == 0 || chiffre2 == 0 || chiffre1 == 1 || chiffre2 == 1 || result == 0){
+        if(chiffre1 == 0 || chiffre2 == 0 || chiffre1 == 1 || chiffre2 == 1 || result == 0
+        || (singleCalculInput.getListeOperators().get(0).equals(OperatorCalcul.SOUSTRACTION)
+            && chiffre2 < 0)){
             calcul = this.genererSingleCalcul(singleCalculInput);
         }
 
@@ -110,9 +115,24 @@ public class ExeciseGenerator {
 
 
 
-    public void genererPdf(String nomOpeCal, ExeciseOutput execiseOutput, boolean avecResult){
-        try{
-            OutputStream outputStream = new FileOutputStream("./"+ nomOpeCal + (avecResult ? "result": "") + ".pdf");
+    public void genererPdf(String nomOpeCal, ExeciseOutput execiseOutput, boolean avecResult) throws Exception {
+
+            String dir = "./"+ Constantes.REPERTOIRE_PDF +"/";
+            File dossierPdf = new File(dir);
+            if(!dossierPdf.exists()){
+                // true if the directory was created, false otherwise
+                if (dossierPdf.mkdirs()) {
+                    System.out.println("Directory is created!");
+                } else {
+                    System.out.println("Failed to create directory!");
+                }
+            }
+
+
+            SimpleDateFormat  formater = new SimpleDateFormat("HH_mm_ss");
+            String dateStr = formater.format(new Date());
+            String nomFichier = ("./" + Constantes.REPERTOIRE_PDF + "/"+ nomOpeCal + dateStr + (avecResult ? "result": "") + ".pdf").replaceAll(" ", "");
+            OutputStream outputStream = new FileOutputStream(nomFichier);
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
@@ -146,8 +166,33 @@ public class ExeciseGenerator {
 
             doc.close();
             outputStream.close();
-        }catch(Exception e){
-            // TODO
+
+            this.openPdf(nomFichier);
+
+
+    }
+
+
+    public void openPdf(String pathFichier) throws Exception {
+        try {
+
+            File pdfFile = new File(pathFichier);
+            if (pdfFile.exists()) {
+
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(pdfFile);
+                } else {
+                    System.out.println("Awt Desktop is not supported!");
+                }
+
+            } else {
+                System.out.println("File is not exists!");
+            }
+
+            System.out.println("Done");
+
+        } catch (Exception ex) {
+            throw new Exception("Impossible d'ouvrir le PDF");
         }
 
     }

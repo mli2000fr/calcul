@@ -23,7 +23,7 @@ public class SingleExeciseInput extends ExeciseBaseInput {
     public String getNomOpeCal(){
         String nom = "";
         for(OperatorCalcul ope: listeOperators){
-            nom += ope.getNom().substring(0, 3) + "_";
+            nom += ope.getNom().toLowerCase() + "_";
         }
         return nom;
     }

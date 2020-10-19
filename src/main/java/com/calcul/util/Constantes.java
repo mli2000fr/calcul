@@ -45,4 +45,8 @@ public class Constantes {
     public static final int PANEL_SIZE_HEIGHT = 50;
 
 
+    //pdf
+    public static final String REPERTOIRE_PDF = "pdf_execises";
+
+
 }

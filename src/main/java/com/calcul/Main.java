@@ -23,8 +23,8 @@ public class Main {
 
         inputs.setOperateurDivision(true);
   */
-        ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
+        //ExeciseOutput execiseOutput = execiseGenerator.genererExicises(inputs);
 
-        System.out.println(execiseOutput.toString());
+        //System.out.println(execiseOutput.toString());
     }
 }
