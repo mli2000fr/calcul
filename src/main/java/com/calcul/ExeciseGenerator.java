@@ -116,8 +116,8 @@ public class ExeciseGenerator {
 
 
     public void genererPdf(String nomOpeCal, ExeciseOutput execiseOutput, boolean avecResult) throws Exception {
-
-            String dir = "./"+ Constantes.REPERTOIRE_PDF +"/";
+            String dossierCurrent = System.getProperty("user.dir");
+            String dir = dossierCurrent + "/"+ Constantes.REPERTOIRE_PDF +"/";
             File dossierPdf = new File(dir);
             if(!dossierPdf.exists()){
                 // true if the directory was created, false otherwise
@@ -131,7 +131,7 @@ public class ExeciseGenerator {
 
             SimpleDateFormat  formater = new SimpleDateFormat("HH_mm_ss");
             String dateStr = formater.format(new Date());
-            String nomFichier = ("./" + Constantes.REPERTOIRE_PDF + "/"+ nomOpeCal + dateStr + (avecResult ? "result": "") + ".pdf").replaceAll(" ", "");
+            String nomFichier = (dir + nomOpeCal + dateStr + (avecResult ? "result": "") + ".pdf").replaceAll(" ", "");
             OutputStream outputStream = new FileOutputStream(nomFichier);
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDoc = new PdfDocument(writer);
